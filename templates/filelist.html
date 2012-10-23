@@ -1,0 +1,27 @@
+{% if files is defined %}
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+    <th>Имя файла</th>
+    <th>Размер</th>
+    <th>Время загрузки</th>
+    <th>Файл удалится</th>
+    <th>Скачан</th>
+    <th></th>
+</tr>
+</thead>
+<tbody>
+{% for file in files %}
+<tr>
+    <td><a href="{{ url_for(".getfile", id=file.id) }}">{{ file.name }}</a></td>
+    <td>{{ file.size|filesize }}</td>
+    <td>{{ file.uploaded|datetime }}</td>
+    <td>{{ file.savetime|datetime }}</td>
+    <td>{{ file.count }} раз</td>
+    <td><a href="#" onclick="window.prompt('Скопировать: Ctrl+C, Enter', 'http://files.vepomsk.ru{{ url_for(".getfile", id=file.id) }}');" class="btn btn-small btn-success">Ссылка</a>
+    <a href="#" onclick="$.ajax('{{ url_for(".deletefile", id=file.id) }}'); $(this).closest('tr').remove();" class="btn btn-small btn-warning">Удалить</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endif %}

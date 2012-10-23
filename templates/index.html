@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Обмен файлами</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="/static/assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="/static/assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="/static/assets/css/fileuploader.css" rel="stylesheet" type="text/css">	
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="/static/assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/static/assets/ico/apple-touch-icon-57-precomposed.png">
+
+    <!-- use jquery -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+  </head>
+  <body>
+    <div class="container">
+
+<div class="row-fluid" id="filelist">
+</div>
+<div class="row-fluid">
+    <div class="span6" id="bootstrapped-fine-uploader"></div>
+    <div class="span6">
+    <form class="form-inline">
+Время хранения файла: 
+        <select id="timeselector">
+        <option value="1">час</option>
+        <option value="24">сутки</option>
+        <option value="168" selected>неделя</option>
+        <option value="672">месяц</option>
+        </select>
+    </form>
+    </div>
+</div>
+
+<br>
+<script src="/static/assets/js/fileuploader.js" type="text/javascript"></script>
+<script>
+var uploader;
+  function createUploader() {
+    uploader = new qq.FileUploader({
+      element: document.getElementById('bootstrapped-fine-uploader'),
+      action: '/upload',
+      uploadButtonText: '<i class="icon-upload icon-white"></i> Загрузить файл',
+      template: '<div class="qq-uploader span12">' +
+                  '<pre class="qq-upload-drop-area span12"><span>{dragText}</span></pre>' +
+                  '<div class="qq-upload-button btn btn-success" style="width: auto;">{uploadButtonText}</div>' +
+                  '<ul class="qq-upload-list" style="margin-top: 10px; text-align: center;"></ul>' +
+                '</div>',
+      forceMultipart: true,
+      debug: true,
+      onComplete: function(id, filename, resp) { $('#filelist').load('{{ url_for(".filelist") }}');},
+      classes: {
+        button: 'qq-upload-button',
+        drop: 'qq-upload-drop-area',
+        dropActive: 'qq-upload-drop-area-active',
+        dropDisabled: 'qq-upload-drop-area-disabled',
+        list: 'qq-upload-list',
+        progressBar: 'qq-progress-bar',
+        file: 'qq-upload-file',
+        spinner: 'qq-upload-spinner',
+        finished: 'qq-upload-finished',
+        size: 'qq-upload-size',
+        cancel: 'qq-upload-cancel',
+        failText: 'qq-upload-failed-text',
+        success: 'alert alert-success',
+        fail: 'alert alert-error',
+        successIcon: null,
+        failIcon: null
+      }
+    });
+    uploader.setParams({savetime: $("#timeselector").val()});
+  }
+  
+$('#timeselector').change(function() {
+    uploader.setParams({savetime: $("#timeselector").val()});
+});
+$(document).ready(function() {
+$('#filelist').load('{{ url_for(".filelist") }}');
+});
+  window.onload = createUploader;
+</script>
+
+      <footer>
+        <p>&copy; Eki 2012</p>
+      </footer>
+
+    </div> <!-- /container -->
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <script language="JavaScript">
+    $('.modal').appendTo($('body'));
+    </script>
+  <script type="text/javascript">
+      $("[rel=tooltip]").tooltip();
+      $("[rel=popover]").popover();
+      $(".collapse").collapse({toggle: false});
+      </script>
+
+  </body>
+</html>
