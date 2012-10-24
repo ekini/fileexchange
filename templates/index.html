@@ -31,12 +31,16 @@
     <link rel="apple-touch-icon-precomposed" href="/static/assets/ico/apple-touch-icon-57-precomposed.png">
 
     <!-- use jquery -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="/static/assets/js/jquery-latest.js"></script>
   </head>
   <body>
     <div class="container">
-
 <div class="row-fluid" id="filelist">
+</div>
+<div class="row-fluid">
+    <div class="alert alert-info">
+    Максимальный размер файла: <strong>600 Мб</strong>
+    </div>
 </div>
 <div class="row-fluid">
     <div class="span6" id="bootstrapped-fine-uploader"></div>
@@ -69,7 +73,8 @@ var uploader;
                 '</div>',
       forceMultipart: true,
       debug: true,
-      onComplete: function(id, filename, resp) { $('#filelist').load('{{ url_for(".filelist") }}');},
+      maxConnections: 1,
+      onComplete: function(id, filename, resp) { setTimeout(function() {$('#filelist').load('{{ url_for(".filelist") }}')}, 2000);},
       classes: {
         button: 'qq-upload-button',
         drop: 'qq-upload-drop-area',

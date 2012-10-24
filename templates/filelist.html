@@ -4,8 +4,8 @@
 <tr>
     <th>Имя файла</th>
     <th>Размер</th>
-    <th>Время загрузки</th>
-    <th>Файл удалится</th>
+    <th>Дата загрузки</th>
+    <th>Дата удаления</th>
     <th>Скачан</th>
     <th></th>
 </tr>
@@ -13,7 +13,7 @@
 <tbody>
 {% for file in files %}
 <tr>
-    <td><a href="{{ url_for(".getfile", id=file.id) }}">{{ file.name }}</a></td>
+    <td><a href="http://files.vepomsk.ru/{{ url_for(".getfile", id=file.id) }}">{{ file.name }}</a></td>
     <td>{{ file.size|filesize }}</td>
     <td>{{ file.uploaded|datetime }}</td>
     <td>{{ file.savetime|datetime }}</td>
