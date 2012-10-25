@@ -14,6 +14,7 @@ class File(db.Document):
     size = db.IntField(required=True)
     count = db.IntField(required=True, default=0)
     uploaded = db.DateTimeField(default=datetime.datetime.now)
+    downloadtime = db.ListField(db.DateTimeField(), default=[])
     savetime = db.DateTimeField(required=True)
     meta = {
         "indexes": ["owner", "path", "-uploaded"]

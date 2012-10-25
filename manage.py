@@ -16,7 +16,8 @@ manager = Manager(app)
 manager.add_command("runserver", Server(
     use_debugger = True,
     use_reloader = True,
-    host = '0.0.0.0')
+    host = '0.0.0.0',
+    port = 6789)
 )
 
 class GeventServer(Command):

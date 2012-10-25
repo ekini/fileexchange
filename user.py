@@ -13,9 +13,8 @@ import datetime
 
 from flask import Blueprint
 from flask.views import MethodView
-#from mailerwebsite.models import (User, Campaign, CampaignForm,
-#                                  Template, TemplateForm)
 from fileexchange.models import File
+import os
 
 import struct
 import socket
@@ -50,10 +49,12 @@ class FileList(MethodView):
 class DeleteFile(MethodView):
     def get(self, id=None):
         try:
-            f = File.objects(id=id).delete()
+            f = File.objects.get(id=id)
+            os.unlink(f.path)
+            f.delete()
             return "ok"
         except:
-            abort(404)
+            abort(500)
 
 
 class GetFile(MethodView):
@@ -61,13 +62,14 @@ class GetFile(MethodView):
         try:
             f = File.objects.get(id=id)
             File.objects(id=id).update(inc__count=1)
+            File.objects(id=id).update(push__downloadtime=datetime.datetime.now())
             response = make_response()
             response.headers['Cache-Control'] = 'no-cache'
             response.headers['Content-Type'] = f.type
             response.headers['Content-Disposition'] = 'attachment; filename=' + f.name
             response.headers['X-Accel-Redirect'] = "/download/" + "/".join(f.path.split("/")[3:])
             return response
-        except:
+        except None:
             abort(404)
 
 
