@@ -18,7 +18,7 @@
     <td>{{ file.uploaded|datetime }}</td>
     <td>{{ file.savetime|datetime }}</td>
     <td><a href="#" rel="popover" data-title="Время скачивания" data-content="{% for time in file.downloadtime %}{{ time|datetime }}<br>{% endfor %}" data-placement="left">{{ file.count }} раз</a></td>
-    <td><a href="#" onclick="window.prompt('Скопировать: Ctrl+C, Enter', 'http://files.vepomsk.ru{{ url_for(".getfile", id=file.id) }}');" class="btn btn-small btn-success">Ссылка</a>
+    <td><a href="#" onclick="window.prompt('Скопируйте это в письмо:', 'http://files.vepomsk.ru{{ url_for(".getfile", id=file.id) }}');" class="btn btn-small btn-success">Ссылка</a>
     <a href="#" onclick="$.ajax('{{ url_for(".deletefile", id=file.id) }}'); $(this).closest('tr').remove();" class="btn btn-small btn-warning">Удалить</a></td>
 </tr>
 {% endfor %}

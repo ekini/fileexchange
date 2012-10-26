@@ -11,7 +11,7 @@ def main():
     for doc in db.file.find({"savetime": {"$lt": datetime.datetime.now()}}):
         print "Deleting %s: %s" % (doc["name"], doc["path"])
         os.unlink(doc["path"])
-        doc.delete()
+        db.file.remove({"_id": doc["_id"]})
 
 if __name__ == "__main__":
         main()
