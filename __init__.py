@@ -7,8 +7,7 @@
 from flask import Flask, render_template, flash, url_for, jsonify
 from flask import request
 from flask import redirect
-#from flask_login import (LoginManager, login_required, login_user,
-#                         logout_user, current_user)
+from flaskext.babel import Babel
 from flask.ext.mongoengine import MongoEngine
 import locale
 locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
@@ -17,14 +16,20 @@ locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 MONGODB_DB = "upload"
+BABEL_DEFAULT_LOCALE = "ru"
+
 
 SECRET_KEY = "dfjewpr39fedffgfgfgf"
 
 app = Flask(__name__)
 app.config.from_object(__name__)
+babel = Babel(app)
 
+#def format_datetime(value):
+#    return unicode(value.strftime("%a, %d, %b %Y %H:%M"), "utf-8")
+from flaskext.babel import format_datetime as format_datetime_babel
 def format_datetime(value):
-    return unicode(value.strftime("%a, %d, %b %Y %H:%M"), "utf-8")
+    return format_datetime_babel(value, 'EEEE, d MMMM yyyy H:mm')
 
 def sizeof_fmt(num):
     num = float(num)
@@ -49,6 +54,13 @@ def register_blueprints(app):
 
 register_blueprints(app)
 
+@babel.localeselector
+def get_locale():
+    # otherwise try to guess the language from the user accept
+    # header the browser transmits.  We support de/fr/en in this
+    # example.  The best match wins.
+    print request.accept_languages.best_match(['ru', 'en'])
+    return request.accept_languages.best_match(['ru', 'en'])
 
 if __name__ == "__main__":
     app.debug = True

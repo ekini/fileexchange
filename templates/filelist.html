@@ -2,11 +2,11 @@
 <table class="table table-condensed table-hover">
 <thead>
 <tr>
-    <th>Имя файла</th>
-    <th>Размер</th>
-    <th>Дата загрузки</th>
-    <th>Дата удаления</th>
-    <th>Скачан</th>
+    <th>{{ _("Filename") }}</th>
+    <th>{{ _("Size") }}</th>
+    <th>{{ _("Upload date") }}</th>
+    <th>{{ _("Deletion date") }}</th>
+    <th>{{ _("Downloaded") }}</th>
     <th></th>
 </tr>
 </thead>
@@ -17,9 +17,9 @@
     <td>{{ file.size|filesize }}</td>
     <td>{{ file.uploaded|datetime }}</td>
     <td>{{ file.savetime|datetime }}</td>
-    <td><a href="#" rel="popover" data-title="Время скачивания" data-content="{% for time in file.downloadtime %}{{ time|datetime }}<br>{% endfor %}" data-placement="left">{{ file.count }} раз</a></td>
-    <td><a href="#" onclick="window.prompt('Скопируйте это в письмо:', 'http://files.vepomsk.ru{{ url_for(".getfile", id=file.id) }}');" class="btn btn-small btn-success">Ссылка</a>
-    <a href="#" onclick="$.ajax('{{ url_for(".deletefile", id=file.id) }}'); $(this).closest('tr').remove();" class="btn btn-small btn-warning">Удалить</a></td>
+    <td><a href="#" rel="popover" data-title="{{ _("Download time") }}" data-content="{% for time in file.downloadtime %}{{ time|datetime }}<br>{% endfor %}" data-placement="left">{{ file.count }} {{ _("times") }}</a></td>
+    <td><a href="#" onclick="window.prompt('{{ _("Copy this to letter") }}', 'http://files.vepomsk.ru{{ url_for(".getfile", id=file.id) }}');" class="btn btn-small btn-success">{{ _("Link") }}</a>
+    <a href="#" onclick="$.ajax('{{ url_for(".deletefile", id=file.id) }}'); $(this).closest('tr').remove();" class="btn btn-small btn-warning">{{ _("Delete") }}</a></td>
 </tr>
 {% endfor %}
 </tbody>

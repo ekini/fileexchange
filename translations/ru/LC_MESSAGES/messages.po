@@ -1,0 +1,99 @@
+# Russian translations for .
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the  project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version:  0.1\n"
+"Report-Msgid-Bugs-To: eugene@dementiev.eu\n"
+"POT-Creation-Date: 2012-10-27 11:45+0700\n"
+"PO-Revision-Date: 2012-10-27 11:46+0700\n"
+"Last-Translator: Eugene Dementiev <eugene@dementiev.eu>\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: templates/filelist.html:5
+msgid "Filename"
+msgstr "Имя файла"
+
+#: templates/filelist.html:6
+msgid "Size"
+msgstr "Размер"
+
+#: templates/filelist.html:7
+msgid "Upload date"
+msgstr "Дата закачивания"
+
+#: templates/filelist.html:8
+msgid "Deletion date"
+msgstr "Дата удаления"
+
+#: templates/filelist.html:9
+msgid "Downloaded"
+msgstr "Скачан"
+
+#: templates/filelist.html:20
+msgid "Download time"
+msgstr "Время загрузки"
+
+#: templates/filelist.html:20
+msgid "times"
+msgstr "раз"
+
+#: templates/filelist.html:21
+msgid "Copy this to letter"
+msgstr "Скопируйте это в письмо"
+
+#: templates/filelist.html:21
+msgid "Link"
+msgstr "Ссылка"
+
+#: templates/filelist.html:22
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/index.html:5
+msgid "File exchange"
+msgstr "Обмен файлами"
+
+#: templates/index.html:42
+msgid "Maximum file size: "
+msgstr "Максимальный размер файла: "
+
+#: templates/index.html:42
+msgid "Mb"
+msgstr "Мб"
+
+#: templates/index.html:49
+msgid "File keeping time: "
+msgstr "Время хранения файла: "
+
+#: templates/index.html:51
+msgid "1 hour"
+msgstr "1 час"
+
+#: templates/index.html:52
+msgid "24 hours"
+msgstr "24 часа"
+
+#: templates/index.html:53
+msgid "1 week"
+msgstr "1 неделя"
+
+#: templates/index.html:54
+msgid "1 month"
+msgstr "1 месяц"
+
+#: templates/index.html:68
+msgid "Upload file"
+msgstr "Закачать файл"
+
+#~ msgid "Count"
+#~ msgstr "Скачан"
+

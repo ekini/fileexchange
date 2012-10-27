@@ -1,0 +1,95 @@
+# Translations template for PROJECT.
+# Copyright (C) 2012 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2012.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2012-10-27 11:45+0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: templates/filelist.html:5
+msgid "Filename"
+msgstr ""
+
+#: templates/filelist.html:6
+msgid "Size"
+msgstr ""
+
+#: templates/filelist.html:7
+msgid "Upload date"
+msgstr ""
+
+#: templates/filelist.html:8
+msgid "Deletion date"
+msgstr ""
+
+#: templates/filelist.html:9
+msgid "Downloaded"
+msgstr ""
+
+#: templates/filelist.html:20
+msgid "Download time"
+msgstr ""
+
+#: templates/filelist.html:20
+msgid "times"
+msgstr ""
+
+#: templates/filelist.html:21
+msgid "Copy this to letter"
+msgstr ""
+
+#: templates/filelist.html:21
+msgid "Link"
+msgstr ""
+
+#: templates/filelist.html:22
+msgid "Delete"
+msgstr ""
+
+#: templates/index.html:5
+msgid "File exchange"
+msgstr ""
+
+#: templates/index.html:42
+msgid "Maximum file size: "
+msgstr ""
+
+#: templates/index.html:42
+msgid "Mb"
+msgstr ""
+
+#: templates/index.html:49
+msgid "File keeping time: "
+msgstr ""
+
+#: templates/index.html:51
+msgid "1 hour"
+msgstr ""
+
+#: templates/index.html:52
+msgid "24 hours"
+msgstr ""
+
+#: templates/index.html:53
+msgid "1 week"
+msgstr ""
+
+#: templates/index.html:54
+msgid "1 month"
+msgstr ""
+
+#: templates/index.html:68
+msgid "Upload file"
+msgstr ""
+
