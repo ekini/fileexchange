@@ -58,7 +58,7 @@ class DeleteFile(MethodView):
 
 
 class GetFile(MethodView):
-    def get(self, id=None):
+    def get(self, id=None, filename=None):
         try:
             f = File.objects.get(id=id)
             File.objects(id=id).update(inc__count=1)
@@ -66,10 +66,10 @@ class GetFile(MethodView):
             response = make_response()
             response.headers['Cache-Control'] = 'no-cache'
             response.headers['Content-Type'] = f.type
-            response.headers['Content-Disposition'] = 'attachment; filename=' + f.name
+            response.headers['Content-Disposition'] = 'attachment'
             response.headers['X-Accel-Redirect'] = "/download/" + "/".join(f.path.split("/")[3:])
             return response
-        except None:
+        except:
             abort(404)
 
 
@@ -99,7 +99,7 @@ class Uploader(MethodView):
 
 user.add_url_rule('/', view_func=Index.as_view('index'))
 user.add_url_rule('/filelist', view_func=FileList.as_view('filelist'))
-user.add_url_rule('/getfile/<id>', view_func=GetFile.as_view('getfile'))
+user.add_url_rule('/getfile/<id>/<filename>', view_func=GetFile.as_view('getfile'))
 user.add_url_rule('/deletefile/<id>', view_func=DeleteFile.as_view('deletefile'))
 user.add_url_rule('/upload', view_func=Uploader.as_view('uploader'))
 

@@ -39,8 +39,15 @@ def sizeof_fmt(num):
         num /= 1024.0
     return "%3.1f %s" % (num, 'TB')
 
+#import urllib
+# well, seems like it doesn't need encoding
+def urlquote(string):
+    #return urllib.quote(string.encode("utf-8"))
+    return string
+
 app.jinja_env.filters['datetime'] = format_datetime
 app.jinja_env.filters['filesize'] = sizeof_fmt
+app.jinja_env.filters['urlquote'] = urlquote
 
 # connect to the database
 db = MongoEngine(app)
