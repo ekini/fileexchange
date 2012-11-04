@@ -28,16 +28,20 @@ babel = Babel(app)
 #def format_datetime(value):
 #    return unicode(value.strftime("%a, %d, %b %Y %H:%M"), "utf-8")
 from flaskext.babel import format_datetime as format_datetime_babel
+
+
 def format_datetime(value):
     return format_datetime_babel(value, 'EEEE, d MMMM yyyy H:mm')
 
+
 def sizeof_fmt(num):
     num = float(num)
-    for x in ['bytes','KB','MB','GB']:
+    for x in ['bytes', 'KB', 'MB', 'GB']:
         if num < 1024.0 and num > -1024.0:
             return "%3.1f %s" % (num, x)
         num /= 1024.0
     return "%3.1f %s" % (num, 'TB')
+
 
 #import urllib
 # well, seems like it doesn't need encoding
@@ -61,18 +65,10 @@ def register_blueprints(app):
 
 register_blueprints(app)
 
+
 @babel.localeselector
 def get_locale():
-    # otherwise try to guess the language from the user accept
-    # header the browser transmits.  We support de/fr/en in this
-    # example.  The best match wins.
-    print request.accept_languages.best_match(['ru', 'en'])
     return request.accept_languages.best_match(['ru', 'en'])
 
 if __name__ == "__main__":
-    app.debug = True
-#    app.run("0.0.0.0")
-    from gevent.wsgi import WSGIServer
-
-    http_server = WSGIServer(('', 5000), app)
-    http_server.serve_forever()
+    pass
