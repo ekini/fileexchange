@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import Flask, render_template, flash, url_for, jsonify, abort, make_response
+from flask import (Flask, render_template, flash,
+                   url_for, jsonify, abort, make_response)
 from flask import request
 from flask import redirect
-#from flask_login import (LoginManager, login_required, login_user,
-#                         logout_user, current_user)
+
 import time
-#import urllib2
-#import json
 import datetime
 
 from flask import Blueprint
@@ -19,11 +17,13 @@ import os
 import struct
 import socket
 
-def addressInNetwork(ip,net):
+
+def addressInNetwork(ip, net):
     "Is an address in a network"
-    ipaddr = struct.unpack('L',socket.inet_aton(ip))[0]
-    netaddr,bits = net.split('/')
-    netmask = struct.unpack('L',socket.inet_aton(netaddr))[0] & ((2L<<int(bits)-1) - 1)
+    ipaddr = struct.unpack('L', socket.inet_aton(ip))[0]
+    netaddr, bits = net.split('/')
+    netmask = struct.unpack('L',
+                            socket.inet_aton(netaddr))[0] & ((2L<<int(bits)-1) - 1)
     return ipaddr & netmask == netmask
 
 user = Blueprint('user', __name__, template_folder='templates')
@@ -41,10 +41,12 @@ class Index(MethodView):
         except:
             abort(403)
 
+
 class FileList(MethodView):
     def get(self):
         files = File.objects(owner=request.headers["X-Forwarded-For"]).order_by("-uploaded")
         return render_template("filelist.html", files=files)
+
 
 class DeleteFile(MethodView):
     def get(self, id=None):
@@ -76,9 +78,6 @@ class GetFile(MethodView):
 class Uploader(MethodView):
 
     def post(self):
-        print request.form
-        print request.headers["X-Forwarded-For"]
-        #print request.__dict__
         res = []
         f = File()
         f.name = request.form["qqfile.name"]
@@ -90,7 +89,7 @@ class Uploader(MethodView):
         f.savetime = datetime.datetime.now() + datetime.timedelta(hours=int(request.args.get("savetime")))
         f.owner = request.headers["X-Forwarded-For"]
         try:
-            print f.validate()
+            f.validate()
             f.save()
         except None:
             return make_response("{\"error\"}")
