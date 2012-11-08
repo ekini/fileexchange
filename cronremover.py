@@ -7,12 +7,14 @@ import datetime
 
 db = Connection().upload
 
+
 def main():
     for doc in db.file.find({"savetime": {"$lt": datetime.datetime.now()}}):
-        print "Deleting %s (owner: %s): %s" % (doc["name"], doc["owner"], doc["path"])
+        print "Deleting '%s' (owner: %s): %s" % (doc["name"].encode("utf-8"),
+                                                 doc["owner"].encode("utf-8"),
+                                                 doc["path"].encode("utf-8"))
         os.unlink(doc["path"])
         db.file.remove({"_id": doc["_id"]})
 
 if __name__ == "__main__":
         main()
-
