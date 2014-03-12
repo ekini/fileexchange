@@ -8,7 +8,7 @@ Software used:
 - _nginx_ to handle file uploads/downloads;
 - _gunicorn_ to serve wsgi app;
 - _flask microframework_ to build website;
-- _mongodb_ as a database;
+- _sqlalchemy_ as ORM;
 
 Tested in browsers:
 
