@@ -1,18 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from pymongo import Connection
 import os
-import datetime
+from datetime import datetime
 
-db = Connection().upload
-
+from models import session, File
 
 def main():
-    for doc in db.file.find({"savetime": {"$lt": datetime.datetime.now()}}):
-        print "Deleting '%s' (owner: %s): %s" % (doc["name"].encode("utf-8"),
-                                                 doc["owner"].encode("utf-8"),
-                                                 doc["path"].encode("utf-8"))
+    for file in session.query(File).filter(File.deletion_date <= datetime.now()):
+        print "Deleting '%s' (owner: %s): %s" % (file.name,
+                                                 file.owner,
+                                                 file.path)
         os.unlink(doc["path"])
         db.file.remove({"_id": doc["_id"]})
 

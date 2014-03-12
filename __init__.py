@@ -8,7 +8,6 @@ from flask import Flask, render_template, flash, url_for, jsonify
 from flask import request
 from flask import redirect
 from flaskext.babel import Babel
-from flask.ext.mongoengine import MongoEngine
 import locale
 locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 
@@ -52,9 +51,6 @@ def urlquote(string):
 app.jinja_env.filters['datetime'] = format_datetime
 app.jinja_env.filters['filesize'] = sizeof_fmt
 app.jinja_env.filters['urlquote'] = urlquote
-
-# connect to the database
-db = MongoEngine(app)
 
 
 def register_blueprints(app):

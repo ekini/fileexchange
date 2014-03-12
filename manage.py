@@ -10,6 +10,9 @@ from fileexchange import app
 
 app.debug = True
 manager = Manager(app)
+from models import create_database
+
+create_database()
 
 
 # Turn on debugger by default and reloader
