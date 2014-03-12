@@ -40,7 +40,6 @@ class Log(Base):
     ip = Column(String, nullable=False)
 
     file_id = Column(Integer, ForeignKey('files.id'))
-    #file = relationship("File", backref=backref('log', order_by=id))
 
     def __init__(self, ip, file):
         self.ip = ip
