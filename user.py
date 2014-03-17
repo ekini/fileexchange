@@ -16,7 +16,8 @@ from shortuuid import uuid
 
 from flask import Blueprint
 from flask.views import MethodView
-from fileexchange.models import session, File, Log
+from . import db
+from .models import File, Log
 
 user = Blueprint('user', __name__, template_folder='templates')
 
@@ -30,36 +31,40 @@ class Index(MethodView):
                 return render_template("index.html")
             else:
                 abort(403)
-        except None:
+        except:
             abort(403)
 
 
 class FileList(MethodView):
     def get(self):
-        files = session.query(File).filter_by(owner=request.headers["X-Forwarded-For"]).order_by("-upload_date")
+        files = db.session.query(File).filter_by(owner=request.headers["X-Forwarded-For"]).order_by("-upload_date")
         return render_template("filelist.html", files=files)
 
 
 class DeleteFile(MethodView):
     def get(self, id=None):
         try:
-            f = session.query(File).filter_by(owner=request.headers["X-Forwarded-For"], uuid=id).first()
+            f = db.session.query(File).filter_by(owner=request.headers["X-Forwarded-For"], uuid=id).first()
             if f:
-                os.unlink(f.path)
-                f.delete()
+                try:
+                    os.unlink(f.path)
+                except OSError:
+                    pass
+                db.session.delete(f)
+                db.session.commit()
                 return "ok"
         except:
-            abort(500)
+            abort(404)
 
 
 class GetFile(MethodView):
     def get(self, id=None, filename=None):
         try:
-            f = session.query(File).filter_by(uuid=id).first()
+            f = db.session.query(File).filter_by(uuid=id).first()
             if f:
                 log = Log(request.headers["X-Forwarded-For"], f)
-                session.add(log)
-                session.commit()
+                db.session.add(log)
+                db.session.commit()
                 response = make_response()
                 response.headers['Cache-Control'] = 'no-cache'
                 response.headers['Content-Type'] = f.type
@@ -85,10 +90,10 @@ class Uploader(MethodView):
         f.deletion_date = datetime.datetime.now() + datetime.timedelta(hours=int(request.args.get("savetime")))
         f.upload_date = datetime.datetime.now()
         try:
-            session.add(f)
-            session.commit()
+            db.session.add(f)
+            db.session.commit()
         except:
-            session.rollback()
+            db.session.rollback()
             return make_response("{\"error\"}")
         return make_response("{\"success\": true}")
 

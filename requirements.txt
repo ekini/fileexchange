@@ -1,6 +1,7 @@
 Babel==0.9.6
-Flask==0.9
+Flask==0.10.1
 Flask-Babel==0.8
+Flask-SQLAlchemy==1.0
 Flask-Script==0.5.1
 Flask-WTF==0.8
 Jinja2==2.6
@@ -10,7 +11,7 @@ Werkzeug==0.8.3
 gevent==0.13.8
 greenlet==0.4.0
 gunicorn==0.15.0
-mongoengine==0.7.5
+itsdangerous==0.23
 netaddr==0.7.10
 pytz==2012g
 shortuuid==0.4

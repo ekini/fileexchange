@@ -17,7 +17,7 @@
     <td>{{ file.size|filesize }}</td>
     <td>{{ file.upload_date|datetime }}</td>
     <td>{{ file.deletion_date|datetime }}</td>
-    <td><a href="#" rel="popover" data-title="{{ _("Download time") }}" data-content="{% for time in file.downloadtime %}{{ time|datetime }}<br>{% endfor %}" data-placement="left">{{ file.downloads|count }} {{ _("times") }}</a></td>
+    <td><a href="#" rel="popover" data-title="{{ _("Download time") }}" data-content="{% for log in file.downloads %}{{ log.date|datetime }}<br>{% endfor %}" data-placement="left">{{ file.downloads|count }} {{ _("times") }}</a></td>
     <td><a href="#" onclick="window.prompt('{{ _("Copy this to letter") }}', 'http://files.vepomsk.ru{{ url_for(".getfile", id=file.id, filename=file.name|urlquote) }}');" class="btn btn-small btn-success">{{ _("Link") }}</a>
     <a href="#" onclick="$.ajax('{{ url_for(".deletefile", id=file.uuid) }}'); $(this).closest('tr').remove();" class="btn btn-small btn-warning">{{ _("Delete") }}</a></td>
 </tr>

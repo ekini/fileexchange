@@ -3,43 +3,41 @@
 
 from datetime import datetime
 
+from . import db
+
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy import Column, Boolean, DateTime, Enum, Integer, String
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import backref, relationship, sessionmaker
 
-DATABASE = "sqlite:///base.db"
-SQL_DEBUG = False
 
-Base = declarative_base()
-
-class File(Base):
+class File(db.Model):
     __tablename__ = "files"
-    id = Column(Integer, primary_key=True)
-    uuid = Column(String, nullable=False)
-    name = Column(String, nullable=False)
-    path = Column(String, nullable=False)
-    owner = Column(String, nullable=False)
-    type = Column(String, nullable=False)
-    md5 = Column(String, nullable=False)
-    size = Column(Integer, nullable=False)
-    upload_date = Column(DateTime, nullable=False)
-    deletion_date = Column(DateTime, nullable=False)
-    deleted = Column(Boolean, default=False)
-    downloads = relationship("Log", order_by="Log.id", backref="file")
+    id = db.Column(db.Integer, primary_key=True)
+    uuid = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    path = db.Column(db.String, nullable=False)
+    owner = db.Column(db.String, nullable=False)
+    type = db.Column(db.String, nullable=False)
+    md5 = db.Column(db.String, nullable=False)
+    size = db.Column(db.Integer, nullable=False)
+    upload_date = db.Column(db.DateTime, nullable=False)
+    deletion_date = db.Column(db.DateTime, nullable=False)
+    deleted = db.Column(db.Boolean, default=False)
+    downloads = db.relationship("Log", order_by="Log.id", backref="file")
 
     def __repr__(self):
         return "<File('%r','%r')>" % (self.name, self.owner)
 
-class Log(Base):
+class Log(db.Model):
     __tablename__ = "log"
 
-    id = Column(Integer, primary_key=True)
-    date = Column(String, nullable=False)
-    ip = Column(String, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime, nullable=False)
+    ip = db.Column(db.String, nullable=False)
 
-    file_id = Column(Integer, ForeignKey('files.id'))
+    file_id = db.Column(db.Integer, db.ForeignKey('files.id'))
 
     def __init__(self, ip, file):
         self.ip = ip
@@ -50,11 +48,3 @@ class Log(Base):
         return "<Log('%r','%r')>" % (self.date, self.ip, self.file.name)
 
 
-engine = create_engine(DATABASE, echo=SQL_DEBUG)
-session = sessionmaker(bind=engine)()
-
-
-def create_database():
-    print "Creating the db...",
-    Base.metadata.create_all(engine)
-    print "Done."

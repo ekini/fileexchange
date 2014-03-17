@@ -8,20 +8,18 @@ from flask import Flask, render_template, flash, url_for, jsonify
 from flask import request
 from flask import redirect
 from flaskext.babel import Babel
+from flask.ext.sqlalchemy import SQLAlchemy
 import locale
 locale.setlocale(locale.LC_ALL, 'ru_RU.UTF-8')
 
-# configuration
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-MONGODB_DB = "upload"
-BABEL_DEFAULT_LOCALE = "ru"
-
-
-SECRET_KEY = "dfjewpr39fedffgfgfgf"
-
 app = Flask(__name__)
-app.config.from_object(__name__)
+#app.debug = True
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/base.db'
+app.config['SECRET_LEY'] = 'dfgfdglfdgdfkgjfkjgefjr9tj49t tj49tj49tj'
+app.config['BABEL_DEFAULT_LOCALE'] = 'ru'
+db = SQLAlchemy(app)
+
 babel = Babel(app)
 
 #def format_datetime(value):

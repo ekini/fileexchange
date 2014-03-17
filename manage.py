@@ -10,9 +10,6 @@ from fileexchange import app
 
 app.debug = True
 manager = Manager(app)
-from models import create_database
-
-create_database()
 
 
 # Turn on debugger by default and reloader
@@ -28,10 +25,16 @@ class GeventServer(Command):
         
         from gevent.wsgi import WSGIServer
 
-        http_server = WSGIServer(('', 5000), app)
+        http_server = WSGIServer(('', 6789), app)
         http_server.serve_forever()
 
-manager.add_command("gev", GeventServer())
+class CreateDb(Command):
+    def run(self):
+        from fileexchange import db
+        db.create_all()
+
+manager.add_command("gevent_server", GeventServer())
+manager.add_command("create_db", CreateDb())
 
 if __name__ == "__main__":
     manager.run()
